@@ -10,10 +10,6 @@ namespace AnalyserProgram
     {
         private string message;
     
-        public MoodAnalyser() 
-        {
-
-        }
         public MoodAnalyser(string message)
         {
             this.message = message; 
@@ -22,6 +18,10 @@ namespace AnalyserProgram
         {
             try
             {
+                if(message.Equals(string.Empty) )   // if empty goes directly to custom exception
+                {
+                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.Entered_Empty,"Mood should not be empty");
+                }
                 if (message.ToLower().Contains("sad"))
                 {
                     return "Sad Mood";
@@ -31,9 +31,9 @@ namespace AnalyserProgram
                     return "Happy Mood";
                 }
             }
-            catch
+            catch(NullReferenceException)// if null handel under catch by custom exception 
             {
-                return "Happy Mood"; 
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.Entered_Null, "Mood should not be  null");
             }
 
         }
