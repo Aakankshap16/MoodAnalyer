@@ -5,31 +5,18 @@ namespace MoodAnalyzerProblemTest
     [TestClass]
     public class UnitTest1
     {
+        [DataRow("I m in happy mood")]
+        [DataRow(null )]
         [TestMethod]
-        public void GivenSadMoodShouldReturnSAD()
-        {
-            //ARRANGE
-            string expectedop = "Sad Mood";
-            string msg = "I am very sad ";
-            MoodAnalyser check = new MoodAnalyser(msg);
-
-            //ACT
-            string result = check.AnalyseMood(msg);
-
-            //ASSERT
-            Assert.AreEqual(expectedop, result);
-        }
-
-        [TestMethod]
-        public void GivenHappyMoodShouldReturnHAPPY()
+        public void GivenHappyMoodShouldReturnHAPPY(string message)
         {
             //ARRANGE
             string expectedop = "Happy Mood";
-            string msg = "I am very Happy ";
-            MoodAnalyser check = new MoodAnalyser(msg);
+           
+            MoodAnalyser check = new MoodAnalyser(message); 
 
             //ACT
-            string result = check.AnalyseMood(msg);
+            string result = check.AnalyseMood();
 
             //ASSERT
             Assert.AreEqual(expectedop, result);
