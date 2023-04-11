@@ -18,15 +18,22 @@ namespace AnalyserProgram
         {
             this.message = message; 
         }    
-        public string AnalyseMood(string message)
+        public string AnalyseMood()
         {
-            if (message.ToLower().Contains("sad"))
+            try
             {
-                return "Sad Mood";
+                if (message.ToLower().Contains("sad"))
+                {
+                    return "Sad Mood";
+                }
+                else
+                {
+                    return "Happy Mood";
+                }
             }
-            else
+            catch
             {
-                return "Happy Mood";
+                return "Happy Mood"; 
             }
 
         }
