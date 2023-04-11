@@ -10,11 +10,11 @@ namespace AnalyserProgram
     {
         private string message;
     
-        public MoodAnalyser() 
+        public MoodAnalyser() //DEAFULT
         {
 
         }
-        public MoodAnalyser(string message)
+        public MoodAnalyser(string message) //PARAMERTEIZED
         {
             this.message = message; 
         }    
