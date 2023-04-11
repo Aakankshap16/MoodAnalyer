@@ -5,21 +5,46 @@ namespace MoodAnalyzerProblemTest
     [TestClass]
     public class UnitTest1
     {
-        [DataRow("I m in happy mood")]
-        [DataRow(null )]
+
         [TestMethod]
-        public void GivenHappyMoodShouldReturnHAPPY(string message)
+        public void Given_Empty_Mood_ShouldThrowCustomException_Show_EmptyMood()
         {
-            //ARRANGE
-            string expectedop = "Happy Mood";
-           
-            MoodAnalyser check = new MoodAnalyser(message); 
+            try
 
-            //ACT
-            string result = check.AnalyseMood();
+            {
+                //ARRANGE
+                string msg = "";
+                MoodAnalyser check = new MoodAnalyser(msg);
+ 
+                //ACT
+                string result = check.AnalyseMood();
+            }
+            catch (MoodAnalyserCustomException ex)
+            {
+                //ASSERT
+                Assert.AreEqual("Mood should not be empty", ex.Message);
+            }
+        }
 
-            //ASSERT
-            Assert.AreEqual(expectedop, result);
+
+        [TestMethod]
+        [ExpectedException(typeof(MoodAnalyserCustomException))] //try catch not required directly we can use 
+
+        public void Given_Null_Mood_ShouldThrowCustomException_Show_Null()
+        {
+            
+                //ARRANGE
+                string msg = null;
+               
+                MoodAnalyser check = new MoodAnalyser(msg);
+
+                //ACT
+                string result = check.AnalyseMood();
+                
+                //ASSERT
+               //when we use [expected excetion (typeof())] not required assert
+                //Assert.AreEqual("Mood should not be null", ex.Message);
+            
         }
     }
 }
