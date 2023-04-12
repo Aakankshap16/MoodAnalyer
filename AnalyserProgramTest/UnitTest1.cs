@@ -1,50 +1,49 @@
 ﻿using AnalyserProgram;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MoodAnalyzerProblemTest
 {
     [TestClass]
     public class UnitTest1
     {
-
+        // TC 4.1 : Given MoodAnalyse class name should return MoodAnalyser object.
         [TestMethod]
-        public void Given_Empty_Mood_ShouldThrowCustomException_Show_EmptyMood()
+        public void GivenMoodAnalyseClassName_ShouldReturnMoodAnalyserObject()
         {
-            try
+            object expected = new MoodAnalyser(null);
+            object obj = MoodAnalyserFactory.CreateMoodAnalyse("AnalyserProgram.MoodAnalyser", "MoodAnalyser");
+            Assert.AreEqual(expected.GetType(), obj.GetType());
+        }
 
+        //TC 4.2 : Given Improper class name should throw MoodAnaliserException.
+        [TestMethod]
+        public void GivenImproperClassName_ShouldThrowMoodAnalyserException()
+        {
+            string excepted = "Class not found";
+            try
             {
-                //ARRANGE
-                string msg = "";
-                MoodAnalyser check = new MoodAnalyser(msg);
- 
-                //ACT
-                string result = check.AnalyseMood();
+                object moodAnalyserObject = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerApp.DemoClass", "MoodAnalyser");
             }
-            catch (MoodAnalyserCustomException ex)
+            catch (MoodAnalyserCustomException exception)
             {
-                //ASSERT
-                Assert.AreEqual("Mood should not be empty", ex.Message);
+                Assert.AreEqual(excepted, exception.Message);
             }
         }
 
-
+        //TC 4.3 : Given improper constructor should throw MoodAnalyserException.
         [TestMethod]
-        [ExpectedException(typeof(MoodAnalyserCustomException))] //try catch not required directly we can use 
-
-        public void Given_Null_Mood_ShouldThrowCustomException_Show_Null()
+        public void GivenImproperConstructor_ShouldThrowMoodAnalyserException()
         {
-            
-                //ARRANGE
-                string msg = null;
-               
-                MoodAnalyser check = new MoodAnalyser(msg);
-
-                //ACT
-                string result = check.AnalyseMood();
-                
-                //ASSERT
-               //when we use [expected excetion (typeof())] not required assert
-                //Assert.AreEqual("Mood should not be null", ex.Message);
-            
+            string excepted = "Constructor is not found";
+            try
+            {
+                object moodAnalyserObject = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerApp.MoodAnalyser", "InvalidConstructor");
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                Assert.AreEqual(excepted, exception.Message);
+            }
         }
     }
 }
+
