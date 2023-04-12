@@ -13,29 +13,19 @@ namespace AnalyserProgram
     {
         public static object CreateMoodAnalyse(string className, string constructorName)
         {
-           
-            string pattern = @"." + constructorName + @"\(\)$";
-            Match result = Regex.Match(pattern, className);
-            if (result.Success)
+            string name = "AnalyserProgram." + className;
+            Type type = Type.GetType(name);
+            if (type == null)
             {
-                try
-                {
-                    Assembly execute = Assembly.GetExecutingAssembly();
-                    Type checktype = execute.GetType(className);
-                    return Activator.CreateInstance(checktype);
-                }
-                catch
-                {
-                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.No_Such_Class, "Class not found");
-
-                }
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.No_Such_Class, "Class not found");
             }
-            else
+            ConstructorInfo constructor = type.GetConstructor(Type.EmptyTypes);
+            if (constructor == null)
             {
-              
-                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.No_Such_Method, "Constructor is not found");
-
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.No_Such_Field, "Constructor is not found");
             }
+            object instance = constructor.Invoke(null);
+            return instance;
         }
     }
 }
