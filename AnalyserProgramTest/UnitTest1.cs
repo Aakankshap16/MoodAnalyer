@@ -6,18 +6,19 @@ namespace MoodAnalyzerProblemTest
     [TestClass]
     public class UnitTest1
     {
-        // TC 4.1 : Given MoodAnalyse class name should return MoodAnalyser object.
+        //TC 5.1 : Given MoodAnalyser class name should return MoodAnalyser object
         [TestMethod]
-        public void GivenMoodAnalyseClassName_ShouldReturnMoodAnalyserObject()
+        public void GivenMoodAnalyserClassName_ShouldReturnMoodAnalyserObject()
         {
-            object expected = new MoodAnalyser(null);
-            object obj = MoodAnalyserFactory.CreateMoodAnalyse("AnalyserProgram.MoodAnalyser", "MoodAnalyser");
-            Assert.AreEqual(expected.GetType(), obj.GetType());
+            string message = null;
+            MoodAnalyser expected = new MoodAnalyser(message);
+            object resultObj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerApp.MoodAnalyser", "MoodAnalyser");
+            Assert.AreEqual(expected.GetType(), resultObj.GetType());
         }
 
-        //TC 4.2 : Given Improper class name should throw MoodAnaliserException.
+        //TC 5.2 : Given Improper class name should throw MoodAnaliserException.
         [TestMethod]
-        public void GivenImproperClassName_ShouldThrowMoodAnalyserException()
+        public void GivenImproperClassNameShouldThrowException()
         {
             string excepted = "Class not found";
             try
@@ -29,10 +30,9 @@ namespace MoodAnalyzerProblemTest
                 Assert.AreEqual(excepted, exception.Message);
             }
         }
-
-        //TC 4.3 : Given improper constructor should throw MoodAnalyserException.
+        //TC 5.3 : Given improper constructor should throw MoodAnalyserException.
         [TestMethod]
-        public void GivenImproperConstructor_ShouldThrowMoodAnalyserException()
+        public void GivenImproperConstructorShouldThrowException()
         {
             string excepted = "Constructor is not found";
             try
@@ -44,6 +44,7 @@ namespace MoodAnalyzerProblemTest
                 Assert.AreEqual(excepted, exception.Message);
             }
         }
+       
+       
     }
 }
-
