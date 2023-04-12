@@ -17,8 +17,9 @@ namespace AnalyserProgram
         public string AnalyseMood()
         {
             try
+            
             {
-                if(message.Equals(string.Empty) )   // if empty goes directly to custom exception
+                if (string.IsNullOrEmpty(message))  // if empty goes directly to custom exception
                 {
                     throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.Entered_Empty,"Mood should not be empty");
                 }
